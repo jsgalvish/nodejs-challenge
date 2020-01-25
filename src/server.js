@@ -7,11 +7,12 @@ const io = require("socket.io")(http);
 io.on('connection',(socket) =>{
   console.log('New Client is Connected')
 
-  socket.on('newMessage', (msg) => {
-    console.log(`New Message: ${msg}`)
+  socket.on('chat-message', (msg) => {
+    console.log(`New Message: ${msg}`);
+    socket.broadcast.emit("chat-message", msg);
   })
 });
 
 http.listen(PORT, () => {
   console.log(`server running PORT: ${PORT}`)
-})
+});

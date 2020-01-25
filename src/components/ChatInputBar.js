@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
+let ChatStore = require('./ChatStore')
 
 class ChatInputBar extends Component{
   constructor(props) {
     super(props);
+    this.state = {
+      message: ''
+    }
   }
 
   sendMessage(e){
-    e.preventDefault()
-    console.log(`New Message:  ${this.msgInput.value}`)
+    e.preventDefault();
+    this.setState({message: this.msgInput.value})
+    ChatStore.addMessage(this.msgInput.value)
   }
 
   render(){
