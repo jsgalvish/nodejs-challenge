@@ -1,15 +1,26 @@
-import React from 'react';
-const io = require('socket.io-client');
+import React, { Component, Fragment} from 'react';
+import ChatContainer from './components/ChatContainer';
+import './css/App.css';
 
-let socket = io('http://localhost:5000');
-socket.emit('newMessage', 'Hi There!');
+//const io = require('socket.io-client');
 
-function App() {
-  return (
-    <div className='App'>
-      <h1>Hi There!</h1>
-    </div>
-  );
+//let socket = io('http://localhost:5000');
+//socket.emit('newMessage', 'Hi There!');
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render(){
+    return(
+      <Fragment>
+        <ChatContainer />
+      </Fragment>
+    )
+  }
+
 }
 
 export default App;
