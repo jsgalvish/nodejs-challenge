@@ -16,9 +16,12 @@ class LoginBox extends Component{
     if(this.userNameInput.value === ''){
       alert('Username Required');
       return
+    } else if ( this.passwordInput.value === ''){
+      alert('Enter your Password');
+      return;
     }
 
-    this.setState({ username: this.userNameInput.value });
+    this.setState({ username: this.userNameInput.value, password: this.passwordInput });
 
     this.props.hideLoginBox();
 
@@ -34,9 +37,16 @@ class LoginBox extends Component{
             <input
               name = 'username'
               type= 'text'
-              placeholder='username'
+              placeholder='Username or Email'
               //onChange={this.handleUsernameChange.bind(this)}
               ref={usernameInput => (this.userNameInput = usernameInput )}
+            />
+            <input
+              name = 'password'
+              type= 'password'
+              placeholder='Password'
+              //onChange={this.handleUsernameChange.bind(this)}
+              ref={passwordInput => (this.passwordInput = passwordInput )}
             />
             <button type='button' onClick={this.submitHandler.bind(this)}
             >
