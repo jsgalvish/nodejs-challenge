@@ -22,6 +22,34 @@ body{
   grid-template-rows: 90% 10%;
 }
 
+
+#main-area ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#main-area li{
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+#main-area .msg-me{
+  margin-left: auto;
+  width: fit-content;
+  background-color: #1da1f2;
+  color: #fff;
+}
+
+#main-area .msg-others{
+  margin-right: auto;
+  width: fit-content;
+  background-color: #e6ecf0;
+  color: #000;
+}
+
 #main-area .chat-bar,
 .chat-bar #chat-form {
   height: 100%;

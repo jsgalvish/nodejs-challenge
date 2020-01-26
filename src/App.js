@@ -27,19 +27,19 @@ class App extends Component{
 
     ChatStore.on('initialize', (username) => {
       this.setState({username: username })
-    })
-
-    this.io.on('chat-message', newMsg =>{
-      this.setState((prevState) => ({messages: [...prevState.messages, newMsg]}));
-      console.log('Message from Another User', newMsg)
-    })
+    });
 
     ChatStore.on('new-message', msg => {
       let newMsg = {msg: msg, username: this.state.username};
-      console.log(newMsg);
-      this.setState((prevState) => ({messages: [...prevState.messages, msg]}));
+      this.setState((prevState) => ({messages: [...prevState.messages, newMsg]}));
       this.io.emit('chat-message', newMsg);
     });
+
+    this.io.on('chat-message', (newMsg) => {
+      this.setState((prevState) => ({messages: [...prevState.messages, newMsg]
+      }));
+      console.log('Mensages for another user' + newMsg )
+    })
   }
 
   hideLoginBox(){
@@ -53,7 +53,7 @@ class App extends Component{
         <div className='chat'>
             <div id='side-area'>
             </div>
-            <ChatContainer />
+            <ChatContainer messages={this.state.messages} username={ this.state.username }/>
         </div>
       </div>
     )

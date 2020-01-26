@@ -8,7 +8,7 @@ io.on('connection',(socket) =>{
   console.log('New Client is Connected')
 
   socket.on('chat-message', (msg) => {
-    console.log(`New Message: ${msg}`);
+    console.log(`New Message: ${msg.msg} - ${msg.username}`);
     socket.broadcast.emit("chat-message", msg);
   })
 });
