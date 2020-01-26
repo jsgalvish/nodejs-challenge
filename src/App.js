@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import ChatInputBar from './components/ChatInputBar';
 import LoginBox from './components/LoginBox';
+
 import './assets/css/App.css';
+import ChatContainer from './components/ChatContainer';
 
 const io = require('socket.io-client');
 let ChatStore = require('./components/ChatStore');
@@ -11,7 +12,8 @@ class App extends Component{
     super(props);
     this.state = {
       url: 'http://localhost:5000',
-      showLoginBox: true
+      showLoginBox: true,
+      messages: []
     }
   }
 
@@ -22,12 +24,12 @@ class App extends Component{
   componentDidMount() {
     this.initSocket();
 
+    this.io.on('chat-message', msg =>{
+      console.log('Message from Another User', msg)
+    })
+
     ChatStore.on('new-message', msg => {
       this.io.emit('chat-message', msg);
-
-      this.io.on('chat-message', msg =>{
-        console.log('Message from Another User', msg)
-      })
     });
   }
 
@@ -42,10 +44,7 @@ class App extends Component{
         <div className='chat'>
             <div id='side-area'>
             </div>
-            <div id='main-area'>
-              <div></div>
-              <ChatInputBar />
-            </div>
+            <ChatContainer />
         </div>
       </div>
     )
