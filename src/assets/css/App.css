@@ -1,0 +1,93 @@
+body{
+  margin: 0;
+  background-color: darkslateblue;
+}
+
+.chat {
+  min-height: 540px;
+  max-height: 540px;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  margin: 5px;
+}
+
+.chat div{
+  margin: 3px;
+  background-color: whitesmoke;
+  border-radius: 1%;
+}
+
+.chat #main-area{
+  display:grid;
+  grid-template-rows: 90% 10%;
+}
+
+#main-area .chat-bar,
+.chat-bar #chat-form {
+  height: 100%;
+  margin: 0;
+}
+
+.chat-bar #chat-form{
+  display:grid;
+  grid-template-columns: 80% 20%;
+}
+
+#chat-form #chat-input{
+  background-color: #f4f6f9;
+  border: 0;
+  border: 1px solid #dce1ec;
+  border-radius: 4px;
+  color: #000;
+}
+
+input {
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #feb805;
+}
+button{
+  background-color: #251a29;
+  color: #fff;
+  border: 0;
+}
+
+.login-box{
+  position: absolute;
+  z-index: 2;
+  min-height: 540px;
+  max-height: 540px;
+  width: 100%;
+  background-color: darkslateblue;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+}
+
+.login-card{
+  display: grid;
+  grid-template-rows: 60% 40%;
+  height: 400px;
+  width: 250px;
+  justify-items: center;
+  align-items: center;
+  background-color: blanchedalmond;
+  border-radius: 10px ;
+}
+
+.login-card img{
+  width: 150px;
+  height: 150px;
+}
+
+.login-card button,
+.login-card input{
+  height: 30px;
+  display: block;
+  width: 100%;
+  border: 0;
+}
