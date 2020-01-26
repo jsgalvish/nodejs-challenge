@@ -13,7 +13,8 @@ class App extends Component{
     this.state = {
       url: 'http://localhost:5000',
       showLoginBox: true,
-      messages: []
+      messages: [],
+      username: ''
     }
   }
 
@@ -24,12 +25,20 @@ class App extends Component{
   componentDidMount() {
     this.initSocket();
 
-    this.io.on('chat-message', msg =>{
-      console.log('Message from Another User', msg)
+    ChatStore.on('initialize', (username) => {
+      this.setState({username: username })
+    })
+
+    this.io.on('chat-message', newMsg =>{
+      this.setState((prevState) => ({messages: [...prevState.messages, newMsg]}));
+      console.log('Message from Another User', newMsg)
     })
 
     ChatStore.on('new-message', msg => {
-      this.io.emit('chat-message', msg);
+      let newMsg = {msg: msg, username: this.state.username};
+      console.log(newMsg);
+      this.setState((prevState) => ({messages: [...prevState.messages, msg]}));
+      this.io.emit('chat-message', newMsg);
     });
   }
 

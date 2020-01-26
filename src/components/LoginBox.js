@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import LogoImage from '../assets/img/logo.png';
 
+let ChatStore = require('./ChatStore');
+
 class LoginBox extends Component{
   constructor(props) {
     super(props);
@@ -17,9 +19,10 @@ class LoginBox extends Component{
     }
 
     this.setState({ username: this.userNameInput.value });
-    console.log(`Username: ${this.userNameInput.value}`)
 
     this.props.hideLoginBox();
+
+    ChatStore.init(this.userNameInput.value)
   }
 
   render(){
