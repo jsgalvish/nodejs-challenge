@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import LogoImage from '../assets/img/logo.png';
 
 let ChatStore = require('./ChatStore');
@@ -21,11 +22,27 @@ class LoginBox extends Component{
       return;
     }
 
-    this.setState({ username: this.userNameInput.value, password: this.passwordInput });
+    axios.post('http://localhost:5000/user/login', {
+      username: this.userNameInput.value,
+      password: this.passwordInput.value
+    }).then((res)=>{
+      if (res.status === 200 && res.data.status === 'success'){
+        this.setState({
+          username: this.userNameInput.value,
+          password: this.passwordInput.value });
 
-    this.props.hideLoginBox();
+        ChatStore.init(this.userNameInput.value);
 
-    ChatStore.init(this.userNameInput.value)
+        this.props.hideLoginBox();
+
+      }else if (res.data.status === 'error'){
+        alert(res.data.msg);
+        this.passwordInput.value = ''
+      }
+    }).catch((err)=>{
+      alert(`Connection Error: ${err}`)
+    });
+
   }
 
   render(){
