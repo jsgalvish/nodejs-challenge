@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-let ChatStore = require('./ChatStore');
+let ChatStore = require('../ChatStore');
 
 
 class ChatInputBar extends Component{

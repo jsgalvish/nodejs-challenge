@@ -3,7 +3,7 @@ import axios from 'axios';
 import lodash from'lodash';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
-import ChatStore from './components/ChatStore';
+import ChatStore from './ChatStore';
 
 import './assets/css/App.css';
 import ChatContainer from './components/ChatContainer';

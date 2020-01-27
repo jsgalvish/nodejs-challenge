@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import LogoImage from '../assets/img/logo.png';
 
-let ChatStore = require('./ChatStore');
+let ChatStore = require('../ChatStore');
 
 class LoginBox extends Component{
   constructor(props) {
