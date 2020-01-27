@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ChatInputBar from './ChatInputBar';
 
 class ChatContainer extends Component{
-  constructor(props) {
+/*constructor(props) {
     super(props);
   }
-
+*/
   render(){
     return(
       <div id='main-area'>

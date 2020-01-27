@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import LoginBox from './components/LoginBox';
+import RegisterBox from './components/RegisterBox';
 
 import './assets/css/App.css';
 import ChatContainer from './components/ChatContainer';
@@ -12,10 +13,23 @@ class App extends Component{
     super(props);
     this.state = {
       url: 'http://localhost:5000',
-      showLoginBox: true,
       messages: [],
-      username: ''
+      username: '',
+      showLoginBox: true,
+      showRegisterBox: false,
     }
+  }
+
+  showRegisterBox(){
+    this.setState({showLoginBox: false, showRegisterBox: true })
+  }
+
+  showLoginBox(){
+    this.setState({showLoginBox: true, showRegisterBox: false })
+  }
+
+  hideLoginBox(){
+    this.setState({showLoginBox: false})
   }
 
   initSocket(){
@@ -42,14 +56,12 @@ class App extends Component{
     })
   }
 
-  hideLoginBox(){
-    this.setState({showLoginBox:false});
-  }
-
   render(){
     return(
       <div>
-        { this.state.showLoginBox && <LoginBox hideLoginBox={this.hideLoginBox.bind(this)}/> }
+        { this.state.showLoginBox && <LoginBox showRegisterBox={this.showRegisterBox.bind(this)} hideLoginBox={this.hideLoginBox.bind(this)}/> }
+        { this.state.showRegisterBox && <RegisterBox showLoginBox={this.showLoginBox.bind(this)}/>}
+
         <div className='chat'>
             <div id='side-area'>
             </div>

@@ -9,7 +9,8 @@ class LoginBox extends Component{
     super(props);
 
     this.state = {
-      username: ''
+      username: '',
+      password: '',
     }
   }
 
@@ -54,21 +55,18 @@ class LoginBox extends Component{
             <input
               name = 'username'
               type= 'text'
-              placeholder='Username or Email'
-              //onChange={this.handleUsernameChange.bind(this)}
               ref={usernameInput => (this.userNameInput = usernameInput )}
             />
             <input
               name = 'password'
               type= 'password'
               placeholder='Password'
-              //onChange={this.handleUsernameChange.bind(this)}
               ref={passwordInput => (this.passwordInput = passwordInput )}
             />
-            <button type='button' onClick={this.submitHandler.bind(this)}
-            >
+            <button type='button' onClick={this.submitHandler.bind(this)}>
               Login
             </button>
+            <div id='link-register' onClick={this.props.showRegisterBox}>Need an account?</div>
           </div>
         </div>
       </div>
