@@ -24,6 +24,7 @@ class ChatInputBar extends Component{
             id='chat-input'
             type='text'
             placeholder='Type your message...'
+            autoComplete='off'
             ref={(input) => {this.msgInput = input}}
           />
           <button id='chat-submit' type='submit' onClick={this.sendMessage.bind(this)}>Send Message</button>

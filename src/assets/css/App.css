@@ -33,7 +33,7 @@ body{
 #main-area li{
   padding: 10px;
   border-radius: 5px;
-  margin: 5px;
+  margin: 7px;
 }
 
 #main-area .msg-me{
@@ -55,7 +55,7 @@ body{
   margin-left: auto;
   background-color: goldenrod;
   color: #fff;
-  max-width: 150px;
+  max-width: 200px;
   text-align: center;
   border: 1px solid black
 }
@@ -73,7 +73,6 @@ body{
 
 #chat-form #chat-input{
   background-color: #f4f6f9;
-  border: 0;
   border: 1px solid #dce1ec;
   border-radius: 4px;
   color: #000;
@@ -103,7 +102,6 @@ button{
   display: grid;
   align-items: center;
   justify-items: center;
-
 }
 
 .login-card{
