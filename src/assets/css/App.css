@@ -50,6 +50,16 @@ body{
   color: #000;
 }
 
+#main-area .msg-bot{
+  margin-right: auto;
+  margin-left: auto;
+  background-color: goldenrod;
+  color: #fff;
+  max-width: 150px;
+  text-align: center;
+  border: 1px solid black
+}
+
 #main-area .chat-bar,
 .chat-bar #chat-form {
   height: 100%;

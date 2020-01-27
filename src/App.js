@@ -49,6 +49,12 @@ class App extends Component{
       this.io.emit('chat-message', newMsg);
     });
 
+    this.io.on('bot-message', (newMsg) => {
+      this.setState((prevState) => ({messages: [...prevState.messages, newMsg]
+      }));
+      console.log('Mensages from bot' + newMsg )
+    })
+
     this.io.on('chat-message', (newMsg) => {
       this.setState((prevState) => ({messages: [...prevState.messages, newMsg]
       }));

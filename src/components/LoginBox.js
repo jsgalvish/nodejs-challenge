@@ -27,17 +27,16 @@ class LoginBox extends Component{
       username: this.userNameInput.value,
       password: this.passwordInput.value
     }).then((res)=>{
-      if (res.status === 200 && res.data.status === 'success'){
+      if (res.data.status === 'success'){
         this.setState({
           username: this.userNameInput.value,
           password: this.passwordInput.value });
-
         ChatStore.init(this.userNameInput.value);
 
         this.props.hideLoginBox();
 
       }else if (res.data.status === 'error'){
-        alert(res.data.msg);
+        alert(res.data.message);
         this.passwordInput.value = ''
       }
     }).catch((err)=>{
@@ -51,23 +50,26 @@ class LoginBox extends Component{
       <div className='login-box'>
         <div className='login-card'>
           <img src={LogoImage} alt='logo' />
-          <div>
+          <form>
             <input
               name = 'username'
               type= 'text'
-              ref={usernameInput => (this.userNameInput = usernameInput )}
+              placeholder='Username'
+              autoComplete="on"
+              ref={input => (this.userNameInput = input )}
             />
             <input
               name = 'password'
               type= 'password'
               placeholder='Password'
-              ref={passwordInput => (this.passwordInput = passwordInput )}
+              autoComplete='current-password'
+              ref={input => (this.passwordInput = input )}
             />
             <button type='button' onClick={this.submitHandler.bind(this)}>
-              Login
+              <b>Login</b>
             </button>
-            <div id='link-register' onClick={this.props.showRegisterBox}>Need an account?</div>
-          </div>
+            <div id='link-register' onClick={this.props.showRegisterBox}>need an account?</div>
+          </form>
         </div>
       </div>
     )

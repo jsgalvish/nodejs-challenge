@@ -9,9 +9,7 @@ class RegisterBox extends Component{
 
     this.state = {
       username: '',
-      password: '',
-      email: '',
-      fullName: ''
+      password: ''
     }
   }
 
@@ -21,21 +19,13 @@ class RegisterBox extends Component{
     if(this.usernameInput.value === ''){
       alert('username required')
       return false
-    } else if ( this.fullnameInput.value === ''){
-      alert('fullname required')
-      return false
-    } else if ( this.emailInput.value === ''){
-      alert('email required')
-      return false
     } else if ( this.passwordInput.value === '') {
       alert('password required')
       return false
     }
 
     let userData = {
-      fullName: this.usernameInput.value,
-      username: this.fullnameInput.value,
-      email:  this.emailInput.value,
+      username: this.usernameInput.value,
       password: this.passwordInput.value
     }
 
@@ -57,35 +47,26 @@ class RegisterBox extends Component{
       <div className='login-box'>
         <div className='login-card'>
           <img src={LogoImage} alt='logo' />
-          <div>
+          <form>
             <input
               name= 'username'
               type= 'text'
               placeholder='Username'
+              autoComplete="on"
               ref={input => (this.usernameInput = input )}
-            />
-            <input
-              name= 'fullname'
-              type= 'text'
-              placeholder='FullName'
-              ref={input => (this.fullnameInput = input )}
-            />
-            <input
-              name= 'email'
-              type= 'text'
-              placeholder='email'
-              ref={input => (this.emailInput = input )}
             />
             <input
               name='userPass'
               type= 'password'
               placeholder='Password'
+              autoComplete='new-password'
               ref={input => (this.passwordInput = input )}
             />
             <button type='button' onClick={this.submitHandler.bind(this)}>
-              Register
+              <b>Register</b>
             </button>
-          </div>
+            <div id='link-register' onClick={this.props.showLoginBox}>login instead?</div>
+          </form>
         </div>
       </div>
     )

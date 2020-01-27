@@ -1,19 +1,9 @@
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
+let bcrypt = require('bcryptjs');
 
 let User= new Schema({
-  fullName: {
-    type: String,
-    required: true,
-    trim: true
-  },
   username:{
-    type: String,
-    trim: true,
-    required: true,
-    unique: true
-  },
-  email: {
     type: String,
     trim: true,
     required: true,
@@ -28,5 +18,9 @@ let User= new Schema({
     default: Date.now()
   }
 });
+
+User.methods.comparePasswords = function(pass) {
+  return bcrypt.compareSync(pass, this.hash_password);
+};
 
 exports = mongoose.model("User", User);
