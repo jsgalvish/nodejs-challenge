@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import lodash from 'lodash'
+import lodash from 'lodash';
 import ChatInputBar from './ChatInputBar';
 
 class ChatContainer extends Component{

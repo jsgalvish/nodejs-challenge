@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+import lodash from'lodash';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
+import ChatStore from './components/ChatStore';
 
 import './assets/css/App.css';
 import ChatContainer from './components/ChatContainer';
 
 const io = require('socket.io-client');
-let ChatStore = require('./components/ChatStore');
 
 class App extends Component{
   constructor(props) {
@@ -36,29 +38,45 @@ class App extends Component{
     this.io= io(this.state.url)
   }
 
+  loadChat(){
+    axios.get(`${this.state.url}/message/all`).then(resp => {
+
+      let  saveMessages = resp.data.messages.map((msg, index) => { return  lodash.omit(msg, '_id') } );
+      this.setState( {messages: saveMessages})
+
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
   componentDidMount() {
     this.initSocket();
 
     ChatStore.on('initialize', (username) => {
+      this.loadChat();
       this.setState({username: username })
     });
 
     ChatStore.on('new-message', msg => {
       let newMsg = {msg: msg, username: this.state.username};
       this.setState((prevState) => ({messages: [...prevState.messages, newMsg]}));
+
+      axios.post("http://localhost:5000/message/save", newMsg).then((res) => {
+      }).catch((err) => {
+        console.log('Error Conection to the Server!!')
+      });
+
       this.io.emit('chat-message', newMsg);
     });
 
     this.io.on('bot-message', (newMsg) => {
       this.setState((prevState) => ({messages: [...prevState.messages, newMsg]
       }));
-      console.log('Mensages from bot' + newMsg )
     })
 
     this.io.on('chat-message', (newMsg) => {
       this.setState((prevState) => ({messages: [...prevState.messages, newMsg]
       }));
-      console.log('Mensages for another user' + newMsg )
     })
   }
 

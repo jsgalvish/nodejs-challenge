@@ -12,11 +12,7 @@ class ChatStore extends EventEmitter{
 
   init(username){
     this.emit('initialize',username);
-    this.state.username = username
-  }
-
-  getUserName(){
-    return this.state.username;
+    this.state.username = username;
   }
 
   addMessage(msg){
