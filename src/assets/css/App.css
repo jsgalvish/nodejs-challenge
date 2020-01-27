@@ -22,12 +22,20 @@ body{
   grid-template-rows: 90% 10%;
 }
 
+#main-area .chat-messages{
+  overflow-y: hidden;
+  display: flex;
+  align-items: flex-end;
+}
 
 #main-area ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 486px;
+  box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 #main-area li{

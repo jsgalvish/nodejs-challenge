@@ -11,11 +11,12 @@ let bot = function (socket, msg) {
 
     if (res) {
       axios.get(`https://stooq.com/q/l/?s=${res[2]}&f=sd2t2ohlcv&h&e=csv`).then(resp => {
-        socket.emit("bot-message", {
-            msg: `${res[2]} quote is ${this.csvJSON(resp.data)['Close']} per share`,
-            username: 'bot'
-          })
-
+        let close = `${this.csvJSON(resp.data)['Close']}`
+        if ( close === 'N/D' ){
+          socket.emit("bot-message", { msg: `${res[2]} is not in stooq.com`, username: 'bot' })
+        } else{
+          socket.emit("bot-message", { msg: `${res[2]} quote is ${close} per share`, username: 'bot' })
+        }
       }).catch((err) => {
         console.log(err);
       });
@@ -23,23 +24,21 @@ let bot = function (socket, msg) {
   };
 
   this.csvJSON = function(csv){
-    var lines=csv.replace('\r','')
+    let lines=csv.replace('\r','')
       .replace('\r','').split('\n');
-    var result = [];
-    var headers=lines[0].split(",");
+    let result = [];
+    let headers=lines[0].split(",");
 
-    for(var i=1;i<lines.length;i++){
-      var obj = {};
-      var currentline=lines[i].split(",");
-      for(var j=0;j<headers.length;j++){
+    for(let i=1;i<lines.length;i++){
+      let obj = {};
+      let currentline =lines[i].split(",");
+      for(let j=0;j<headers.length;j++){
         obj[headers[j]] = currentline[j];
       }
       result.push(obj);
     }
-
     return result[0];
   }
-
 };
 
  module.exports = bot;
