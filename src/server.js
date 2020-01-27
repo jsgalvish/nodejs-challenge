@@ -20,7 +20,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true)
 mongoose.connect('mongodb+srv://admin0123:admin0123@chatusers-2bz1s.gcp.mongodb.net/chat_users?retryWrites=true&w=majority');
 
-let userMode = require('../api/models/userModel')
+let userModel = require('../api/models/userModel')
 let userRoutes = require('../api/routes/userRoutes');
 userRoutes.route(app);
 

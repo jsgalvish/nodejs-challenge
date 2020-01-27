@@ -14,8 +14,10 @@ let bot = function (socket, msg) {
         let close = `${this.csvJSON(resp.data)['Close']}`
         if ( close === 'N/D' ){
           socket.emit("bot-message", { msg: `${res[2]} is not in stooq.com`, username: 'bot' })
+          socket.broadcast.emit("bot-message", { msg: `${res[2]} is not in stooq.com`, username: 'bot' })
         } else{
           socket.emit("bot-message", { msg: `${res[2]} quote is ${close} per share`, username: 'bot' })
+          socket.broadcast.emit("bot-message", { msg: `${res[2]} quote is ${close} per share`, username: 'bot' })
         }
       }).catch((err) => {
         console.log(err);
