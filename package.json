@@ -4,6 +4,7 @@
   "description": "Simple browser-based chat application",
   "scripts": {
     "start": "concurrently \"npm run server\" \" react-scripts start\"",
+    "test": "jest --forceExit",
     "server": "nodemon ./src/server.js"
   },
   "repository": {
@@ -32,6 +33,12 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -46,7 +53,9 @@
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
+    "jest": "24.9.0",
     "nodemon": "^2.0.2",
+    "supertest": "^4.0.2",
     "webpack": "4.41.2"
   }
 }

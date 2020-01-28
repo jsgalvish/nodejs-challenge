@@ -17,7 +17,6 @@ let bot = function (io, msg, room) {
         if ( close === 'N/D' ){
           io.to(this.room).emit("bot-message", { msg: `${res[2]} is not in stooq.com`, username: 'bot' })
         } else{
-          console.log("bien " + room);
           io.to(this.room).emit("bot-message", { msg: `${res[2]} quote is ${close} per share`, username: 'bot' })
         }
       }).catch((err) => {

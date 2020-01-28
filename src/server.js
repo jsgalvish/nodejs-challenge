@@ -9,7 +9,6 @@ const bot = require('./bot');
 let mongoose = require('mongoose');
 let BodyParser = require("body-parser");
 
-
 app.use(cors());
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
@@ -47,3 +46,5 @@ io.on('connection',(socket) =>{
 http.listen(PORT, () => {
   console.log(`server running PORT: ${PORT}`)
 });
+
+module.exports = app;

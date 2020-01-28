@@ -18,12 +18,12 @@ Simple browser-based chat application using Node.JS
 - [x] create decoupled bot that get the csv from stooq.com and post in chat (stock bot don't save in database)
 - [x] keep Confidential information secure (passwords encryption using "bcryptjs" )
 - [x] chat ordered by timestamps, limit to 50 messages
-- [x] **Have more thant one chat**
+- [x] **Have more that one chat**
 - [x] **Handle error from stock bot**
 
 ## Requirements Pending
 
-- [ ] Unit Testing
+- [x] ~~Unit Testing~~ (Done after deadline) Run `npm test`
 
 ## Author
 
