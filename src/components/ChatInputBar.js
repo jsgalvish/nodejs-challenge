@@ -12,9 +12,11 @@ class ChatInputBar extends Component{
 
   sendMessage(e){
     e.preventDefault();
-    this.setState({message: this.msgInput.value});
-    ChatStore.addMessage(this.msgInput.value);
-    this.msgInput.value = '';
+    if ( this.msgInput.value !== '' ) {
+      this.setState({message: this.msgInput.value});
+      ChatStore.addMessage(this.msgInput.value);
+      this.msgInput.value = '';
+    }
   }
 
   render(){

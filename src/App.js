@@ -40,7 +40,7 @@ class App extends Component{
   }
 
   loadChat(){
-
+    this.setState( {messages: []});
     axios.get(`${this.state.url}/message/all`, { params:{ room: this.state.room} } ).then(resp => {
 
       let  saveMessages = resp.data.messages.map((msg, index) => { return  lodash.omit(msg, '_id') } );
@@ -51,13 +51,17 @@ class App extends Component{
     });
   }
 
+  updateRoom(room){
+    this.io.emit('disconnect-room', this.state.room);
+    ChatStore.init(this.state.username, room);
+  }
+
   componentDidMount() {
     this.initSocket();
 
     ChatStore.on('initialize', data => {
       this.io.emit('connect-room', data.room);
-      this.setState({username: data.username, room: data.room })
-      this.loadChat();
+      this.setState({username: data.username, room: data.room }, () => this.loadChat())
     });
 
     ChatStore.on('new-message', msg => {
@@ -91,7 +95,7 @@ class App extends Component{
 
         <div className='chat'>
             <div id='side-area'>
-              <ChatSelector />
+              <ChatSelector updateRoom={this.updateRoom.bind(this)}/>
             </div>
             <ChatContainer messages={this.state.messages} username={ this.state.username }/>
         </div>

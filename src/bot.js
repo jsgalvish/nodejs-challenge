@@ -1,12 +1,12 @@
 const axios = require('axios');
 
-let bot = function (socket, msg, room) {
-  this.socket = socket;
+let bot = function (io, msg, room) {
   this.message = msg;
   this.room = room;
   this.pattern = /(^\/stock=)(.\S*$)/g;
 
   this.sent = function(){
+
 
     let res = this.pattern.exec(this.message);
 
@@ -15,11 +15,10 @@ let bot = function (socket, msg, room) {
       axios.get(`https://stooq.com/q/l/?s=${res[2]}&f=sd2t2ohlcv&h&e=csv`).then(resp => {
         let close = `${this.csvJSON(resp.data)['Close']}`;
         if ( close === 'N/D' ){
-          socket.to(this.room).emit("bot-message", { msg: `${res[2]} is not in stooq.com`, username: 'bot' })
-          socket.broadcast.to(this.room).emit("bot-message", { msg: `${res[2]} is not in stooq.com`, username: 'bot' })
+          io.to(this.room).emit("bot-message", { msg: `${res[2]} is not in stooq.com`, username: 'bot' })
         } else{
-          socket.to(this.room).emit("bot-message", { msg: `${res[2]} quote is ${close} per share`, username: 'bot' })
-          socket.broadcast.to(this.room).emit("bot-message", { msg: `${res[2]} quote is ${close} per share`, username: 'bot' })
+          console.log("bien " + room);
+          io.to(this.room).emit("bot-message", { msg: `${res[2]} quote is ${close} per share`, username: 'bot' })
         }
       }).catch((err) => {
         console.log(err);

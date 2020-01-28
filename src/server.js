@@ -32,11 +32,14 @@ io.on('connection',(socket) =>{
 
   socket.on('connect-room', (room) => {
     socket.join(room);
-  })
+  });
 
+  socket.on('disconnect-room', (room) => {
+    socket.leave(room);
+  });
 
   socket.on('chat-message', (data) => {
-    let listenerBot = new bot(socket, data.msg, data.room);
+    let listenerBot = new bot(io, data.msg, data.room);
     listenerBot.sent();
     socket.broadcast.to(data.room).emit("chat-message", data);
   })
