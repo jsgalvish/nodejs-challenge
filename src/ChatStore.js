@@ -6,13 +6,16 @@ class ChatStore extends EventEmitter{
     super();
     this.state = {
       messages:[],
-      username:''
+      username:'',
+      room:''
     }
   }
 
-  init(username){
-    this.emit('initialize',username);
+  init(username, room){
+    this.emit('initialize',{ username: username, room: room });
     this.state.username = username;
+    this.state.room = room;
+
   }
 
   addMessage(msg){

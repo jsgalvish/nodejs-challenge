@@ -12,15 +12,13 @@ exports.saveController = (req, res) =>{
       msg: message
     });
   });
-
 };
 
-exports.allController = (req,res) =>{
-
-  Message.find({},{ msg: 1 , username: 1 }, (err, messages)=>{
+exports.allController = (req,res) => {
+  Message.find({room: req.query.room},{ msg: 1 , username: 1 }, (err, messages)=>{
     if (err) {
       return res.status(401).json({ status: "error", message: err });
-    } else{
+    } else {
       return res.json({
         status: "success",
         messages: messages

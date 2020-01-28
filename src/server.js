@@ -30,14 +30,15 @@ messageRoutes.route(app);
 
 io.on('connection',(socket) =>{
 
+  socket.on('connect-room', (room) => {
+    socket.join(room);
+  })
 
 
-  socket.on('chat-message', (msg) => {
-
-    var listenerBot = new bot(socket, msg);
+  socket.on('chat-message', (data) => {
+    let listenerBot = new bot(socket, data.msg, data.room);
     listenerBot.sent();
-
-    socket.broadcast.emit("chat-message", msg);
+    socket.broadcast.to(data.room).emit("chat-message", data);
   })
 });
 

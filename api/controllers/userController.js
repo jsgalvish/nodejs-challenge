@@ -3,7 +3,7 @@ let User = mongoose.model("User");
 let bcrypt = require('bcryptjs');
 
 
-exports.registerController = (req, res) =>{
+exports.registerController = (req, res) => {
   let newUser = new User(req.body);
   newUser.hash_password = bcrypt.hashSync(req.body.password);
 
@@ -46,5 +46,3 @@ exports.loginController = (req, res) => {
     return res.json({status: 'error', message: 'Wrong Credentials Are Wrong!'})
   })
 };
-
-

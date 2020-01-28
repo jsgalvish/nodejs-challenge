@@ -11,6 +11,10 @@ let Message= new Schema({
     type: String,
     required: true
   },
+  room:{
+    type: String,
+    require: true
+  },
   created: {
     type: Date,
     default: Date.now()

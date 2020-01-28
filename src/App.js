@@ -3,8 +3,8 @@ import axios from 'axios';
 import lodash from'lodash';
 import LoginBox from './components/LoginBox';
 import RegisterBox from './components/RegisterBox';
+import ChatSelector from './components/ChatSelector';
 import ChatStore from './ChatStore';
-
 import './assets/css/App.css';
 import ChatContainer from './components/ChatContainer';
 
@@ -17,6 +17,7 @@ class App extends Component{
       url: 'http://localhost:5000',
       messages: [],
       username: '',
+      room: '',
       showLoginBox: true,
       showRegisterBox: false,
     }
@@ -39,7 +40,8 @@ class App extends Component{
   }
 
   loadChat(){
-    axios.get(`${this.state.url}/message/all`).then(resp => {
+
+    axios.get(`${this.state.url}/message/all`, { params:{ room: this.state.room} } ).then(resp => {
 
       let  saveMessages = resp.data.messages.map((msg, index) => { return  lodash.omit(msg, '_id') } );
       this.setState( {messages: saveMessages})
@@ -52,13 +54,14 @@ class App extends Component{
   componentDidMount() {
     this.initSocket();
 
-    ChatStore.on('initialize', (username) => {
+    ChatStore.on('initialize', data => {
+      this.io.emit('connect-room', data.room);
+      this.setState({username: data.username, room: data.room })
       this.loadChat();
-      this.setState({username: username })
     });
 
     ChatStore.on('new-message', msg => {
-      let newMsg = {msg: msg, username: this.state.username};
+      let newMsg = {msg: msg, username: this.state.username, room: this.state.room};
       this.setState((prevState) => ({messages: [...prevState.messages, newMsg]}));
 
       axios.post("http://localhost:5000/message/save", newMsg).then((res) => {
@@ -88,6 +91,7 @@ class App extends Component{
 
         <div className='chat'>
             <div id='side-area'>
+              <ChatSelector />
             </div>
             <ChatContainer messages={this.state.messages} username={ this.state.username }/>
         </div>

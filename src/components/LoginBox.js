@@ -31,7 +31,7 @@ class LoginBox extends Component{
         this.setState({
           username: this.userNameInput.value,
           password: this.passwordInput.value });
-        ChatStore.init(this.userNameInput.value);
+        ChatStore.init(this.userNameInput.value, 'a');
 
         this.props.hideLoginBox();
 
