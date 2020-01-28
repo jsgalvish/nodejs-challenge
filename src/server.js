@@ -4,14 +4,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
-
-let mongoose = require('mongoose');
-
-let BodyParser = require("body-parser");
 const bot = require('./bot');
 
-app.use(cors());
+let mongoose = require('mongoose');
+let BodyParser = require("body-parser");
 
+
+app.use(cors());
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
 
